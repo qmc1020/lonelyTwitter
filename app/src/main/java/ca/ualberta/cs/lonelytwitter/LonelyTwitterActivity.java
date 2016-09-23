@@ -52,6 +52,17 @@ public class LonelyTwitterActivity extends Activity {
 				saveInFile();
 			}
 		});
+
+		Button clearButton = (Button) findViewById(R.id.clear);
+		clearButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				tweetList.clear();
+				adapter.notifyDataSetChanged();
+				saveInFile();
+			}
+		});
 	}
 
 	@Override
@@ -65,7 +76,7 @@ public class LonelyTwitterActivity extends Activity {
 	}
 
 	private void loadFromFile() {
-		ArrayList<String> tweets = new ArrayList<String>();
+		//ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
 			BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -75,7 +86,8 @@ public class LonelyTwitterActivity extends Activity {
 			tweetList = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException();
+			//throw new RuntimeException();
+			tweetList = new ArrayList<Tweet>();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException();
